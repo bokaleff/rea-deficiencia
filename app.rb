@@ -4,6 +4,7 @@ require 'haml'
 
 get '/' do
   haml :index
+  params[:ra]
 end
 
 post '/test' do
