@@ -1,15 +1,9 @@
 require 'sinatra'
 require 'ims/lti'
 require 'haml'
+require 'base64'
 
 get '/' do
+  @ra = Base64.decode64(params[:r]) if params[:r]
   haml :index
-  params[:ra]
 end
-
-post '/test' do
-  params[:custom_canvas_user_login_id]
-end
-
-
-
