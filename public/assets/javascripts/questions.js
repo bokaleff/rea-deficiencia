@@ -1,7 +1,7 @@
-
 ///////
 
 var questions = [];
+
 
 function new_question(descricao, foto, medico, caritativo, social){
   questions.push({
@@ -84,6 +84,8 @@ var btnStart = $(".btn-start");
 
 function initRea(){
 
+  console.log("chamando initRea");
+
   feedback.hide();
   quiz.hide();
 
@@ -95,6 +97,11 @@ function initRea(){
       // remove tabindex de logos após início
       $("nav *").attr("tabindex", "-1");
     }, 500);
+
+    console.log("preenchendo dataInicio");
+    resposta.ra = $("#ra").val();
+    resposta.dataInicio = Date();
+    console.log(resposta);
   })
 
 }
@@ -113,29 +120,58 @@ function changeColor(r = r, g = g, b = b){
 
 function showFeedback(){
 
+  console.log("showFeedback");
+  resposta.dataTermino = Date();
+    
+
   if(r/colorByQuestion == 1){
     var valueCaritativo = r/colorByQuestion + " situação"
   } else {
     var valueCaritativo = r/colorByQuestion + " situações"
   }
+  resposta.caritativo = r/colorByQuestion;
 
   if(g/colorByQuestion == 1){
     var valueMedico = g/colorByQuestion + " situação"
   } else {
     var valueMedico = g/colorByQuestion + " situações"
   }
+  resposta.medico = g/colorByQuestion;
 
   if(b/colorByQuestion == 1){
     var valueSocial = b/colorByQuestion + " situação"
   } else {
     var valueSocial = b/colorByQuestion + " situações"
   }
+  resposta.social = b/colorByQuestion;
 
   feedback.fadeIn();
   feedback.css("background-color","rgb("+r+","+g+","+b+")");
   $(".feedbackMedico span").text(valueMedico);
   $(".feedbackCaritativo span").text(valueCaritativo);
   $(".feedbackSocial span").text(valueSocial);
+
+  console.log(resposta);
+
+
+  $.ajax({
+    type: "POST",
+    url: "response",
+    data: resposta
+  })
+  .done(function(data) {
+    console.log("data");
+    console.log(data);
+  })
+  .fail(function (jqXHR, textStatus, error) {
+    console.log("jqXHR");
+    console.log(jqXHR);
+    console.log("textStatus");
+    console.log(textStatus);
+    console.log("error");
+    console.log(error);
+  })
+
 };
 
 function checkClick() {
@@ -205,7 +241,7 @@ initRea();
 var i = 0;
 initQuestion();
 
-alternative.on("click", function(){
+alternative.on("click", function(){ 
 
   score.css("box-shadow","none");
   $(this).blur();

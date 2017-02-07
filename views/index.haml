@@ -22,6 +22,7 @@
     %link{:href => "https://fonts.googleapis.com/css?family=Quicksand:300,400,700", :rel => "stylesheet"}/
     %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800", :rel => "stylesheet"}/
   %body
+    %input#ra{:type => 'hidden', :value => "#{@ra}"}
     %nav
       %div
         %img{:alt => "Univesp Universidade Virtual do Estado de São Paulo", :src => "images/logo-univesp.png", :style => "margin-right: 30px", :tabindex => "0"}/
@@ -36,16 +37,15 @@
         .container
           %h1{:tabindex => "0"} Qual é o meu pensamento sobre a deficiência?
           %p{:tabindex => "0"} A seguir, estão disponíveis algumas situações a respeito da pessoa com deficiência. Selecione as frases que mais têm a ver com a sua forma de pensar frente a essas situações.
-          %button.btn.btn-lg.btn-start{:style => "margin-right: 15px", :tabindex => "0"} VAMOS LÁ!
-          %p #{@ra}
+          %button.btn.btn-lg.btn-start{:style => "margin-right: 15px", :tabindex => "0" } VAMOS LÁ!          
       .container.quiz
         .top
           .description{:tabindex => "0"}
           .score
         .container.bottom.alternatives
-          %button.medico{:tabindex => "0"} Alternativa A
-          %button.caritativo{:tabindex => "0"} Alternativa B
-          %button.social{:tabindex => "0"} Alternativa C
+          %button.medico{:tabindex => "0", :name => "medico"} Alternativa A
+          %button.caritativo{:tabindex => "0", :name => "caritativo"} Alternativa B
+          %button.social{:tabindex => "0", :name => "social"} Alternativa C
       .feedback
         .container
           %h1{:tabindex => "-1"} Esta é a cor do seu pensamento sobre deficiência.
@@ -65,6 +65,11 @@
           %p{:tabindex => "0"}
             %strong Quer saber mais sobre cada um deles? Este é o foco da próxima parte deste módulo do curso.
           %p{:tabindex => "0"} Atente-se às características de cada um destes modelos e pense o que fazer para melhorar seus pensamentos e atitudes a respeito da deficiência. Quando se deparar com determinada situação, você pode intervir de maneira mais segura e contribuir para que, de fato, ações e concepções sejam transformadas entre seus pares de trabalho, na família e na sociedade como um todo. Essas “formas de pensar” afetam a organização em que você atua e a sociedade ao seu redor.
+
+          :javascript
+            var resposta = new Object();
+
+
   %script{:src => "https://code.jquery.com/jquery-1.10.2.js"}
   %script{:src => "https://code.jquery.com/ui/1.11.3/jquery-ui.js"}
   %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"}
